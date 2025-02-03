@@ -1,4 +1,3 @@
-
 name: Update Manifest
 
 on:
@@ -14,7 +13,7 @@ jobs:
           repository: dangi13/releases
           ref: main
           persist-credentials: true 
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ inputs.github_token }} 
 
       - name: Update manifest dev.json
         id: update_manifest
@@ -24,10 +23,10 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --local user.name "GitHub Actions"
-          git config --local user.email "${{ github.actor }}+github-actions@github.com" 
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}+github-actions@github.com"
           git add manifests/dev.json
           git commit -m "Update ${{ inputs.repository_name }} version in dev.json to ${{ inputs.version }}"
           git push origin main
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ inputs.github_token }} 
