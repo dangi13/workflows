@@ -11,10 +11,6 @@ on:
         required: true
         type: string
         description: The name of the repository.
-      token:
-        required: true
-        type: string
-        description: PAT.
 jobs:
   update_manifest:
     runs-on: ubuntu-latest
@@ -25,7 +21,7 @@ jobs:
           repository: dangi13/releases
           ref: main
           persist-credentials: true 
-          token: ${{ inputs.token }} 
+          token: ${{ secrets.PAT }} 
 
       - name: Update manifest dev.json
         id: update_manifest
