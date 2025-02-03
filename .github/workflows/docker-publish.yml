@@ -1,0 +1,22 @@
+
+name: Docker Publish
+
+on:
+  workflow_call:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to Docker registry
+        run: |
+          echo "LOGIN TO DOCKER REGISTRY"
+          docker login docker.pkg.github.com --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: |
+          docker build . --file ./dockerfiles/Dockerfile --tag ${{ inputs.image_name }}:${{ inputs.image_tag }} --build-arg username=${{ github.actor }} --build-arg password=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ inputs.image_name }}:${{ inputs.image_tag }}
