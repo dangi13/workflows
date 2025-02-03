@@ -1,0 +1,33 @@
+
+name: Update Manifest
+
+on:
+  workflow_call:
+
+jobs:
+  update_manifest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout releases repo
+        uses: actions/checkout@v3
+        with:
+          repository: dangi13/releases
+          ref: main
+          persist-credentials: true 
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update manifest dev.json
+        id: update_manifest
+        run: |
+          jq '.["${{ inputs.repository_name }}"] = {"version": "'"${{ inputs.version }}'" }' manifests/dev.json > manifests/dev.json.tmp
+          mv manifests/dev.json.tmp manifests/dev.json
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "${{ github.actor }}+github-actions@github.com" 
+          git add manifests/dev.json
+          git commit -m "Update ${{ inputs.repository_name }} version in dev.json to ${{ inputs.version }}"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
