@@ -37,4 +37,4 @@ jobs:
           git commit -m "Update ${{ inputs.repository_name }} version in dev.json to ${{ inputs.version }}"
           git push origin main
         env:
-          GITHUB_TOKEN: ${{ inputs.github_token }} 
+          GITHUB_TOKEN: ${{ secrets.PAT }}
