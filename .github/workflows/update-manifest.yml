@@ -11,6 +11,10 @@ on:
         required: true
         type: string
         description: The name of the repository.
+      token:
+        required: true
+        type: string
+        description: PAT.
 jobs:
   update_manifest:
     runs-on: ubuntu-latest
@@ -21,7 +25,7 @@ jobs:
           repository: dangi13/releases
           ref: main
           persist-credentials: true 
-          token: ${{ secrets.PAT }} 
+          token: ${{ inputs.token }} 
 
       - name: Update manifest dev.json
         id: update_manifest
@@ -36,5 +40,3 @@ jobs:
           git add manifests/dev.json
           git commit -m "Update ${{ inputs.repository_name }} version in dev.json to ${{ inputs.version }}"
           git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
