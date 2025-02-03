@@ -13,7 +13,7 @@ jobs:
           repository: dangi13/releases
           ref: main
           persist-credentials: true 
-          token: ${{ inputs.github_token }} 
+          token: ${{ secrets.PAT }} 
 
       - name: Update manifest dev.json
         id: update_manifest
