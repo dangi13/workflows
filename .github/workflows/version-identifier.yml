@@ -1,0 +1,13 @@
+name: Version Identifier
+
+on:
+  workflow_call:
+
+jobs:
+  generate_version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Version Identifier
+        run: echo "VERSION_IDENTIFIER=0.1.${GITHUB_RUN_NUMBER}_${GITHUB_RUN_ATTEMPT}" | tee $GITHUB_ENV
+    outputs:
+      version_identifier: ${{ env.VERSION_IDENTIFIER }}
