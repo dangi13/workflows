@@ -2,15 +2,15 @@ name: Update Manifest
 
 on:
   workflow_call:
-     inputs: 
-      repository_name:
-        type: string
-        description: 'Name of the repository to update in the manifest'
-        required: true
+    inputs:
       version:
-         type: string
-         description: 'Version to be used for the repository'
-         required: true 
+        required: false
+        type: string
+        description: The version of the image.
+      repository_name:
+        required: true
+        type: string
+        description: The name of the repository.
 jobs:
   update_manifest:
     runs-on: ubuntu-latest
