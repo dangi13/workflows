@@ -10,4 +10,5 @@ jobs:
       - name: Set Version Identifier
         run: echo "VERSION_IDENTIFIER=0.1.${GITHUB_RUN_NUMBER}_${GITHUB_RUN_ATTEMPT}" | tee $GITHUB_ENV
     outputs:
-      version_identifier: ${{ env.VERSION_IDENTIFIER }}
+      version_identifier: ${{ steps.Set_Version_Identifier.outputs.version_identifier }} 
+
