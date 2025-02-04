@@ -26,7 +26,7 @@ jobs:
       - name: Update manifest dev.json
         id: update_manifest
         run: |
-          jq '.["${{ inputs.repository_name }}"] = {"version": "'"${{ inputs.version }}'" }' manifests/dev.json > manifests/dev.json.tmp
+          jq '.["${{ inputs.repository_name }}"] = "'${{ inputs.version }}'"' manifests/dev.json > manifests/dev.json.tmp
           mv manifests/dev.json.tmp manifests/dev.json
 
       - name: Commit and push changes
